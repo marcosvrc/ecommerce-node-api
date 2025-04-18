@@ -1,14 +1,20 @@
-export default {
-  clearMocks: true,
-  collectCoverage: true,
-  coverageDirectory: "coverage",
-  coverageProvider: "v8",
+import type { Config } from '@jest/types';
+
+const config: Config.InitialOptions = {
   preset: 'ts-jest',
   testEnvironment: 'node',
-  testMatch: [
-    "**/*.spec.ts"
-  ],
+  testMatch: ['**/__tests__/**/*.spec.ts'],
   moduleNameMapper: {
-    '^@/(.*)$': '<rootDir>/src/$1'
-  }
+    '^@/(.*)$': '<rootDir>/src/$1',
+  },
+  collectCoverageFrom: [
+    'src/**/*.ts',
+    '!src/**/*.spec.ts',
+    '!src/types/**/*.ts',
+  ],
+  coverageDirectory: 'coverage',
+  coverageReporters: ['text', 'lcov'],
+  verbose: true,
 };
+
+export default config;
